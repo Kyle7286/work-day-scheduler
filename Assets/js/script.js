@@ -4,18 +4,16 @@ var localTime = dateTime.local(); //Get the current local time
 var debug = false; //for if you want to trigger the day cycle every second for testing
 
 
-// Create HTML Elements
-createRows();
-
-// Set row colors
-setPastPresentFuture(localTime.hour);
-
+createRows(); // Create HTML Elements
+setPastPresentFuture(localTime.hour); // Set row colors
 
 // Set a timer to check the hour every second and set the colors accordingly
 var j = 9;
 var myVar = setInterval(function () {
+    localTime = dateTime.local();
+    
     // Assign current day to title
-    $("#currentDay").text(formatTimeTitle(localTime))
+    $("#currentDay").text(formatTimeTitle(luxon.DateTime.local()))
     console.log(debug);
     if (debug) {
         setPastPresentFuture(j);
@@ -64,7 +62,7 @@ $(".saveBtn").click(function () {
 function setPastPresentFuture(hour) {
 
     $('.description').each(function () {
-        var row = $(this)
+        var row = $(this);
         var rowVal = parseInt($(this).attr("value"));
 
         if (rowVal === hour) {
@@ -80,9 +78,9 @@ function setPastPresentFuture(hour) {
 
 // Format time to unique format specific to this website
 function formatTimeTitle(time) {
-    var wdl = time.weekdayLong
-    var ml = time.monthLong
-    var wd = time.day
+    var wdl = time.weekdayLong;
+    var ml = time.monthLong;
+    var wd = time.day;
     var tg;
     var timeTitle;
 
@@ -96,7 +94,7 @@ function formatTimeTitle(time) {
         tg = "th";
     }
     timeTitle = wdl + ", " + ml + " " + wd + tg;
-    return timeTitle
+    return timeTitle;
 }
 
 
@@ -130,7 +128,7 @@ function createRows() {
         } else if (i === 11) {
             amPm = "PM";
         }
-        hourIndex++ //Increment hour index
+        hourIndex++; //Increment hour index
     }
 
 
