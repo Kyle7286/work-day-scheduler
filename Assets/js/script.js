@@ -3,8 +3,6 @@ var dateTime = luxon.DateTime; //Grabbing base time object
 var localTime = dateTime.local(); //Get the current local time
 var debug = false; //for if you want to trigger the day cycle every second for testing
 
-// Assign current day to title
-$("#currentDay").text(formatTimeTitle(localTime))
 
 // Create HTML Elements
 createRows();
@@ -16,6 +14,9 @@ setPastPresentFuture(localTime.hour);
 // Set a timer to check the hour every second and set the colors accordingly
 var j = 9;
 var myVar = setInterval(function () {
+    // Assign current day to title
+    $("#currentDay").text(formatTimeTitle(localTime))
+    console.log(debug);
     if (debug) {
         setPastPresentFuture(j);
         if (j === 17) { j = 8; };
@@ -25,6 +26,26 @@ var myVar = setInterval(function () {
     }
 }, 1000);
 
+
+// If debug button is toggled, cycle thru the hours of the day for testing the rotation
+$("#debug").click(function () {
+    console.log("Clicked Debug");
+    btnDebug = $("#debug");
+    btnDebugValue = btnDebug.attr("value");
+    console.log(btnDebug);
+    if (btnDebugValue === "0") {
+        btnDebug.attr("class", "btn btn-sm btn-info p-0")
+        debug = true;
+        btnDebug.attr("value", "1");
+    } else {
+        btnDebug.attr("class", "btn btn-sm btn-outline-info p-0")
+        debug = false;
+        btnDebug.attr("value", "0");
+    }
+
+    console.log(debug);
+
+});
 
 // When save button is clicked, grab the text value of the textarea which matches up with the value of the button pressed
 $(".saveBtn").click(function () {

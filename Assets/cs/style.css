@@ -71,8 +71,8 @@ textarea{
   transition: all .3s ease-in-out;
 }
 
-footer {
-  color:thistle
+footer span {
+  font-size: smaller;
 }
 
 
