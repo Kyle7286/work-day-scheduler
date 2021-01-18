@@ -1,58 +1,47 @@
 // Declare global time variables
 var dateTime = luxon.DateTime; //Grabbing base time object
-var localTime = dateTime.local();
-var mySchedule = {}; //For storing later
-var myArray = []; // For storing later
+var localTime = dateTime.local(); //Get the current local time
+var debug = false; //for if you want to trigger the day cycle every second for testing
 
 // Assign current day to title
 $("#currentDay").text(formatTimeTitle(localTime))
 
 // Create HTML Elements
-createRows(localTime.hour);
+createRows();
+
+// Set row colors
+setPastPresentFuture(localTime.hour);
 
 
 // Set a timer to check the hour every second and set the colors accordingly
 var j = 9;
 var myVar = setInterval(function () {
-    console.log(localTime.hour);
-
-
-    setPastPresentFuture(j)
-    if (j === 17) { j = 8 }
-    j++
-
+    if (debug) {
+        setPastPresentFuture(j);
+        if (j === 17) { j = 8; };
+        j++;
+    } else {
+        setPastPresentFuture(localTime.hour);
+    }
 }, 1000);
-
-
-
 
 
 // When save button is clicked, grab the text value of the textarea which matches up with the value of the button pressed
 $(".saveBtn").click(function () {
     // Grab button value
     var btnValue = $(this).attr("value");
+
     // grab text ID value of the corresponding button value
     var text = $("#d" + btnValue).val();
-    // Set value to key of object with text as its value
-    mySchedule[btnValue] = text;
 
-    // push obj into an array
-    myArray.push(mySchedule);
-    console.log(mySchedule);
-    setLocalStorage(myArray);
-
-
+    // Save to local storage
+    localStorage.setItem(btnValue, text);
 })
-
-
-function setLocalStorage(obj) {
-    localStorage.setItem("scheduler", JSON.stringify(obj));
-}
 
 
 // Loop thru all text boxes and set color based on current hour
 function setPastPresentFuture(hour) {
-    console.log("New second...");
+
     $('.description').each(function () {
         var row = $(this)
         var rowVal = parseInt($(this).attr("value"));
@@ -64,36 +53,33 @@ function setPastPresentFuture(hour) {
         } else if (rowVal < hour) {
             row.attr("class", "col-10 description past");
         }
-
     });
 
-
 }
-
 
 // Format time to unique format specific to this website
 function formatTimeTitle(time) {
     var wdl = time.weekdayLong
     var ml = time.monthLong
-    var wd = time.weekday
+    var wd = time.day
     var tg;
     var timeTitle;
 
-    if (wd === "1" || wd === "21" || wd === "31") {
+    if (wd === 1 || wd === 21 || wd === 31) {
         tg = "st";
-    } else if (wd === "2" || wd === "22") {
+    } else if (wd === 2 || wd === 22) {
         tg = "nd";
-    } else if (wd === "3" || wd === "23") {
+    } else if (wd === 3 || wd === 23) {
         tg = "rd";
     } else {
         tg = "th";
     }
-
-    return timeTitle = wdl + ", " + ml + " " + wd + tg;
+    timeTitle = wdl + ", " + ml + " " + wd + tg;
+    return timeTitle
 }
 
 
-function createRows(hour) {
+function createRows() {
     // Grab the container
     var container = $(".container");
     var icon = '<i class="fas fa-save"></i>'
@@ -107,7 +93,7 @@ function createRows(hour) {
         // Create the elements you'll need and give them attribute classes & id's
         var row = $("<div>").attr("class", "row").attr("id", "h" + i);
         var col1 = $("<div>").attr("class", "col-1 hour").text(hourIndex + amPm);
-        var col2 = $("<textarea>").attr("class", "col-10 description past").attr({ id: "d" + i, value: i });
+        var col2 = $("<textarea>").attr("class", "col-10 description past").attr({ id: "d" + i, value: i }).val(localStorage.getItem(i));
         var col3 = $("<button>").attr({ class: "col-1 saveBtn", value: i }).html(icon);
 
         // Append columns to row
