@@ -3,12 +3,12 @@ var dateTime = luxon.DateTime; //Grabbing base time object
 var localTime = dateTime.local(); //Get the current local time
 var debug = false; //for if you want to trigger the day cycle every second for testing
 
-
+// Setup the page with initial grab of local time
 createRows(); // Create HTML Elements
 setPastPresentFuture(localTime.hour); // Set row colors
 
 // Set a timer to check the hour every second and set the colors accordingly
-var j = 9;
+var j = 9; //used for debugging so it loops 9-5 repeadedly every second
 var myVar = setInterval(function () {
     localTime = dateTime.local();
     
