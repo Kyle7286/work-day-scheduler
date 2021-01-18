@@ -1,12 +1,12 @@
-# Code Quiz (Randomized)
+# Work Day Scheduler
 
 ## General 📖
 ---
-- Date:           01/13/2021
+- Date:           01/18/2021
 - Refactored by:  Brandon Haley
 - Email:          Kyle7286@gmail.com
-- Github:         https://github.com/Kyle7286/code-quiz
-- Website:        https://kyle7286.github.io/code-quiz/
+- Github:         https://github.com/Kyle7286/work-day-scheduler
+- Website:        https://kyle7286.github.io/work-day-scheduler/
 
 ## About/Purpose ❔
 ---
