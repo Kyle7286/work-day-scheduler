@@ -1,6 +1,8 @@
 // Declare global time variables
 var dateTime = luxon.DateTime; //Grabbing base time object
 var localTime = dateTime.local();
+var mySchedule = {}; //For storing later
+var myArray = []; // For storing later
 
 // Assign current day to title
 $("#currentDay").text(formatTimeTitle(localTime))
@@ -22,10 +24,10 @@ var myVar = setInterval(function () {
 }, 1000);
 
 
+
+
+
 // When save button is clicked, grab the text value of the textarea which matches up with the value of the button pressed
-var mySchedule = {}
-
-
 $(".saveBtn").click(function () {
     // Grab button value
     var btnValue = $(this).attr("value");
@@ -34,16 +36,17 @@ $(".saveBtn").click(function () {
     // Set value to key of object with text as its value
     mySchedule[btnValue] = text;
 
-    saveToLocal(mySchedule);
+    // push obj into an array
+    myArray.push(mySchedule);
+    console.log(mySchedule);
+    setLocalStorage(myArray);
 
 
 })
 
 
-function saveToLocal(obj) {
-    // Read local storage into array
-    aStorage = getLocalStorage();
-
+function setLocalStorage(obj) {
+    localStorage.setItem("scheduler", JSON.stringify(obj));
 }
 
 
