@@ -23,9 +23,18 @@ var myVar = setInterval(function () {
 }, 1000);
 
 
-// When save button is clicked, loop thru each textAreas, save to storage
+// When save button is clicked, grab the text value of the textarea which matches up with the value of the button pressed
+$(".saveBtn").click(function () {
+    var btnValue = $(this).attr("value")
+    var text = $("#d" + btnValue).val();
+    saveToLocal(text)
+    console.log(text);
+})
+
+function saveToLocal(text) {
 
 
+}
 
 
 // Loop thru all text boxes and set color based on current hour
@@ -86,7 +95,7 @@ function createRows(hour) {
         var row = $("<div>").attr("class", "row").attr("id", "h" + i);
         var col1 = $("<div>").attr("class", "col-1 hour").text(hourIndex + amPm);
         var col2 = $("<textarea>").attr("class", "col-10 description past").attr({ id: "d" + i, value: i });
-        var col3 = $("<button>").attr("class", "col-1 saveBtn").html(icon);
+        var col3 = $("<button>").attr({ class: "col-1 saveBtn", value: i }).html(icon);
 
         // Append columns to row
         row.append(col1, col2, col3);
