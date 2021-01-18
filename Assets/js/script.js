@@ -9,7 +9,6 @@ $("#currentDay").text(formatTimeTitle(localTime))
 createRows(localTime.hour);
 
 
-
 // Set a timer to check the hour every second and set the colors accordingly
 var j = 9;
 var myVar = setInterval(function () {
@@ -24,15 +23,26 @@ var myVar = setInterval(function () {
 
 
 // When save button is clicked, grab the text value of the textarea which matches up with the value of the button pressed
+var mySchedule = {}
+
+
 $(".saveBtn").click(function () {
-    var btnValue = $(this).attr("value")
+    // Grab button value
+    var btnValue = $(this).attr("value");
+    // grab text ID value of the corresponding button value
     var text = $("#d" + btnValue).val();
-    saveToLocal(text)
-    console.log(text);
+    // Set value to key of object with text as its value
+    mySchedule[btnValue] = text;
+
+    saveToLocal(mySchedule);
+
+
 })
 
-function saveToLocal(text) {
 
+function saveToLocal(obj) {
+    // Read local storage into array
+    aStorage = getLocalStorage();
 
 }
 
