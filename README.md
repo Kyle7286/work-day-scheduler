@@ -3,7 +3,7 @@
 ## General 📖
 ---
 - Date:           01/18/2021
-- Refactored by:  Brandon Haley
+- Author:  Brandon Haley
 - Email:          Kyle7286@gmail.com
 - Github:         https://github.com/Kyle7286/work-day-scheduler
 - Website:        https://kyle7286.github.io/work-day-scheduler/
